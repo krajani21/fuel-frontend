@@ -1,0 +1,13 @@
+/* global.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #eef3f9; /* Light blueish background for entire page */
+  color: #222;
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+}
