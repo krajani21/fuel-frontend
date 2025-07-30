@@ -1,13 +1,215 @@
-/* global.css */
-
+/* ---------- GLOBAL STYLING ---------- */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #eef3f9; /* Light blueish background for entire page */
-  color: #222;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(-45deg, #230046, #2f0052, #3b075e, #552277);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  background-attachment: fixed;
   min-height: 100vh;
+  color: #f0f0f0;
 }
 
-button {
-  font-family: inherit;
+body::before {
+  content: "";
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  animation: echoPulse 6s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes echoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.4;
+  }
+}
+
+
+/* ---------- LOGIN PAGE WRAPPER ---------- */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---------- LOGIN CARD ---------- */
+.login-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 16px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+.login-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+.login-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #dddddd;
+}
+
+/* ---------- INPUTS ---------- */
+.login-input {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.login-input::placeholder {
+  color: #e0e0e0;
+}
+
+.login-input:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ---------- BUTTON ---------- */
+.login-button {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #333333;
+}
+
+/* ---------- ERROR ---------- */
+.login-error {
+  color: #ff4d4d;
+  font-size: 14px;
+  text-align: center;
+  margin-top: -10px;
+}
+
+/* ---------- FOOTER ---------- */
+.login-footer {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.forgot-password {
+  font-size: 14px;
+  color: #ccccff;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* ---------- LANDING PAGE ---------- */
+.landing-card {
+  align-items: center;
+  text-align: center;
+}
+
+.landing-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.landing-subtitle {
+  font-size: 16px;
+  color: #dddddd;
+  margin-bottom: 24px;
+  line-height: 1.5;
+  max-width: 320px;
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.landing-buttons .login-button {
+  width: 100%;
+}
+
+/* ---------- LOGOUT BUTTON ---------- */
+.logout-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.25s ease;
+}
+
+.logout-button:hover {
+  background-color: #c9302c;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 500px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .login-title {
+    font-size: 22px;
+  }
+
+  .login-button {
+    font-size: 15px;
+  }
 }

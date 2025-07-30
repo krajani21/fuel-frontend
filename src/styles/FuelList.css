@@ -1,67 +1,72 @@
-/* FuelList.css */
-
+/* ---------- GLOBAL CONTAINER ---------- */
 .page-container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 40px 20px;
+  max-width: 900px;
   margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f0f0f0;
+  background: transparent;
+  backdrop-filter: blur(6px);
+  min-height: 100vh;
 }
 
+/* ---------- HEADING ---------- */
 .heading {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
   text-align: center;
+  color: #ffffff;
 }
 
+/* ---------- STATION LIST ---------- */
 .station-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
 }
 
+/* ---------- STATION CARDS ---------- */
 .station-card {
-  padding: 18px 22px;
-  margin-bottom: 18px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  border-left: 5px solid #007BFF;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .station-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: scale(1.015);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
 }
 
 .station-card strong {
-  font-size: 1.1em;
-  color: #222;
+  font-size: 1.2em;
+  color: #ffffff;
 }
 
 .station-meta {
-  font-size: 0.9em;
-  color: #555;
+  font-size: 0.95em;
+  color: #cccccc;
   margin-top: 6px;
 }
 
 .station-volume {
-  font-size: 0.95em;
-  color: #111;
-  margin-top: 4px;
-}
-
-input,
-button {
   font-size: 1em;
+  color: #eeeeee;
+  margin-top: 8px;
 }
 
+/* ---------- INPUT + BUTTON GROUP ---------- */
 .input-group {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 14px;
+  margin-bottom: 30px;
 }
 
 .input-group label {
@@ -69,47 +74,100 @@ button {
   align-items: center;
   gap: 6px;
   font-weight: 500;
+  color: #dddddd;
 }
 
 .input-group input {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 100px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1em;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  outline: none;
 }
 
-.input-group button {
-  padding: 6px 16px;
-  border-radius: 4px;
-  background-color: #007BFF;
+.input-group input::placeholder {
+  color: #bbbbbb;
+}
+
+/* ---------- BUTTONS ---------- */
+.input-group button,
+.directions-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background-color: #111111;
   color: white;
+  font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.25s ease;
 }
 
-.input-group button:hover {
-  background-color: #0056c7;
+.input-group button:hover,
+.directions-button:hover {
+  background-color: #2c2c2c;
+  transform: scale(1.04);
 }
 
+/* ---------- NAV LINKS ---------- */
 .nav-links {
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .nav-button {
-  background-color: #f0f4ff;
-  color: #007BFF;
-  padding: 8px 14px;
-  border-radius: 6px;
-  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 10px;
   font-weight: 600;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
 }
 
 .nav-button:hover {
-  background-color: #007BFF;
-  color: #fff;
+  background-color: #ffffff;
+  color: #111;
+  border: 1px solid #ffffff;
+}
+
+/* ---------- SAVINGS TEXT ---------- */
+.savings-text {
+  color: #00e676;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.comparison-text {
+  color: #ff4d4d;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-group input,
+  .input-group button {
+    width: 100%;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-button {
+    width: 100%;
+    text-align: center;
+  }
 }
