@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 
+const BASE_URL = "https://fuel-backend-rt32.onrender.com";
+
 const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
