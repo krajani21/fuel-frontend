@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Container, Row, Col, Button, Nav, Navbar } from 'react-bootstrap';
 import FuelListVolume from './pages/FuelListVolume';
 import FuelListDistance from './pages/FuelListDistance';
 import Login from './pages/Login';
@@ -8,11 +9,14 @@ import LogoutButton from './components/LogoutButton';
 import LandingPage from './pages/LandingPage';
 import PrivateRoute from './routes/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import './styles/global.css';
 
 const AppContent = ({ userLocation, setUserLocation }) => {
   const location = useLocation();
+  const [navbarExpanded, setNavbarExpanded] = useState(false);
 
   const handleGetLocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -22,6 +26,7 @@ const AppContent = ({ userLocation, setUserLocation }) => {
           lng: position.coords.longitude,
         };
         setUserLocation(coords);
+        sessionStorage.setItem('userLocation', JSON.stringify(coords));
         console.log("user location: ", coords);
       },
       (error) => {
@@ -39,7 +44,7 @@ const AppContent = ({ userLocation, setUserLocation }) => {
     <div>
       {!hideLogout && <LogoutButton />}
 
-      <div className="App" style={{ padding: "20px", maxWidth: "900px", margin: "0 auto" }}>
+      <Container fluid className="px-3 py-4">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
@@ -49,20 +54,49 @@ const AppContent = ({ userLocation, setUserLocation }) => {
             path="/distance"
             element={
               <PrivateRoute>
-                <>
-                  <button
-                    onClick={handleGetLocation}
-                    className="nav-button"
-                    style={{ marginBottom: "20px" }}
+                <div>
+                  {!userLocation && (
+                    <Row className="mb-4">
+                      <Col xs={12} className="d-flex justify-content-center">
+                        <Button 
+                          variant="outline-light" 
+                          onClick={handleGetLocation}
+                          className="me-3"
+                        >
+                          Get Location
+                        </Button>
+                      </Col>
+                    </Row>
+                  )}
+                  
+                  <Navbar 
+                    expand="lg" 
+                    className="bg-glass mb-4 rounded"
+                    expanded={navbarExpanded}
+                    onToggle={() => setNavbarExpanded(!navbarExpanded)}
                   >
-                    Get location
-                  </button>
-                  <nav className="nav-links">
-                    <Link to="/distance" className="nav-button">Sort by Distance</Link>
-                    <Link to="/volume" className="nav-button">Sort by Max Volume</Link>
-                  </nav>
+                    <Container fluid>
+                      <Navbar.Brand className="text-white fw-bold">FuelWise</Navbar.Brand>
+                      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                      <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ms-auto" onSelect={() => setNavbarExpanded(false)}>
+                          <Nav.Item>
+                            <Nav.Link as={Link} to="/distance" className="text-white">
+                              Sort by Distance
+                            </Nav.Link>
+                          </Nav.Item>
+                          <Nav.Item>
+                            <Nav.Link as={Link} to="/volume" className="text-white">
+                              Sort by Max Volume
+                            </Nav.Link>
+                          </Nav.Item>
+                        </Nav>
+                      </Navbar.Collapse>
+                    </Container>
+                  </Navbar>
+                  
                   <FuelListDistance userLocation={userLocation} />
-                </>
+                </div>
               </PrivateRoute>
             }
           />
@@ -71,31 +105,72 @@ const AppContent = ({ userLocation, setUserLocation }) => {
             path="/volume"
             element={
               <PrivateRoute>
-                <>
-                  <button
-                    onClick={handleGetLocation}
-                    className="nav-button"
-                    style={{ marginBottom: "20px" }}
+                <div>
+                  {!userLocation && (
+                    <Row className="mb-4">
+                      <Col xs={12} className="d-flex justify-content-center">
+                        <Button 
+                          variant="outline-light" 
+                          onClick={handleGetLocation}
+                          className="me-3"
+                        >
+                          Get Location
+                        </Button>
+                      </Col>
+                    </Row>
+                  )}
+                  
+                  <Navbar 
+                    expand="lg" 
+                    className="bg-glass mb-4 rounded"
+                    expanded={navbarExpanded}
+                    onToggle={() => setNavbarExpanded(!navbarExpanded)}
                   >
-                    Get location
-                  </button>
-                  <nav className="nav-links">
-                    <Link to="/distance" className="nav-button">Sort by Distance</Link>
-                    <Link to="/volume" className="nav-button">Sort by Max Volume</Link>
-                  </nav>
+                    <Container fluid>
+                      <Navbar.Brand className="text-white fw-bold">FuelWise</Navbar.Brand>
+                      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                      <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ms-auto" onSelect={() => setNavbarExpanded(false)}>
+                          <Nav.Item>
+                            <Nav.Link as={Link} to="/distance" className="text-white">
+                              Sort by Distance
+                            </Nav.Link>
+                          </Nav.Item>
+                          <Nav.Item>
+                            <Nav.Link as={Link} to="/volume" className="text-white">
+                              Sort by Max Volume
+                            </Nav.Link>
+                          </Nav.Item>
+                        </Nav>
+                      </Navbar.Collapse>
+                    </Container>
+                  </Navbar>
+                  
                   <FuelListVolume userLocation={userLocation} />
-                </>
+                </div>
               </PrivateRoute>
             }
           />
         </Routes>
-      </div>
+      </Container>
     </div>
   );
 };
 
 function App() {
   const [userLocation, setUserLocation] = useState(null);
+
+  useEffect(() => {
+    const savedLocation = sessionStorage.getItem('userLocation');
+    if (savedLocation) {
+      try {
+        setUserLocation(JSON.parse(savedLocation));
+      } catch (error) {
+        console.error('Error parsing saved location:', error);
+        sessionStorage.removeItem('userLocation');
+      }
+    }
+  }, []);
 
   return (
     <AuthProvider>
