@@ -220,7 +220,7 @@ body::before {
 @media (max-width: 576px) {
   .logout-btn {
     top: 8px !important;
-    right: 60px !important; /* Move away from navbar toggle */
+    right: 8px !important;
     font-size: 0.65rem !important;
     padding: 0.15rem 0.3rem !important;
   }
