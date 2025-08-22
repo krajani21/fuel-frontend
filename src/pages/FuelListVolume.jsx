@@ -11,6 +11,8 @@ const FuelListVolume = ({ userLocation }) => {
   const [submittedAmount, setSubmittedAmount] = useState(null);
   const [submittedEfficiency, setSubmittedEfficiency] = useState(null);
   const [sortBy, setSortBy] = useState('value');
+  const [showAmountPulse, setShowAmountPulse] = useState(false);
+  const [showEfficiencyPulse, setShowEfficiencyPulse] = useState(false);
 
   useEffect(() => {
     if (userLocation && submittedAmount !== null && submittedEfficiency !== null) {
@@ -26,6 +28,14 @@ const FuelListVolume = ({ userLocation }) => {
         });
     }
   }, [userLocation, submittedAmount, submittedEfficiency, radius, sortBy]);
+
+  // Trigger pulsing animations when userLocation is set
+  useEffect(() => {
+    if (userLocation) {
+      setShowAmountPulse(true);
+      setShowEfficiencyPulse(false);
+    }
+  }, [userLocation]);
 
   const sortStations = (stations, sortBy) => {
     const sorted = [...stations];
@@ -48,6 +58,21 @@ const FuelListVolume = ({ userLocation }) => {
   const handleSubmit = () => {
     setSubmittedAmount(parseFloat(fuelAmount));
     setSubmittedEfficiency(parseFloat(efficiency));
+  };
+
+  const handleAmountChange = (e) => {
+    setFuelAmount(e.target.value);
+    if (e.target.value && showAmountPulse) {
+      setShowAmountPulse(false);
+      setShowEfficiencyPulse(true);
+    }
+  };
+
+  const handleEfficiencyChange = (e) => {
+    setEfficiency(e.target.value);
+    if (e.target.value && showEfficiencyPulse) {
+      setShowEfficiencyPulse(false);
+    }
   };
 
   const handleGetDirections = (lat, lng) => {
@@ -91,9 +116,9 @@ const FuelListVolume = ({ userLocation }) => {
                       <Form.Control
                         type="number"
                         value={fuelAmount}
-                        onChange={(e) => setFuelAmount(e.target.value)}
+                        onChange={handleAmountChange}
                         placeholder="e.g. 40"
-                        className="bg-glass border-0"
+                        className={`bg-glass border-0 ${showAmountPulse ? 'btn-pulse' : ''}`}
                       />
                     </Form.Group>
                   </Col>
@@ -103,9 +128,9 @@ const FuelListVolume = ({ userLocation }) => {
                       <Form.Control
                         type="number"
                         value={efficiency}
-                        onChange={(e) => setEfficiency(e.target.value)}
+                        onChange={handleEfficiencyChange}
                         placeholder="e.g. 8.5"
-                        className="bg-glass border-0"
+                        className={`bg-glass border-0 ${showEfficiencyPulse ? 'btn-pulse' : ''}`}
                       />
                     </Form.Group>
                   </Col>

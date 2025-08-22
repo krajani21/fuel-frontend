@@ -61,7 +61,7 @@ const AppContent = ({ userLocation, setUserLocation }) => {
                         <Button 
                           variant="outline-light" 
                           onClick={handleGetLocation}
-                          className="me-3"
+                          className="me-3 btn-pulse"
                         >
                           Get Location
                         </Button>
@@ -112,7 +112,7 @@ const AppContent = ({ userLocation, setUserLocation }) => {
                         <Button 
                           variant="outline-light" 
                           onClick={handleGetLocation}
-                          className="me-3"
+                          className="me-3 btn-pulse"
                         >
                           Get Location
                         </Button>
