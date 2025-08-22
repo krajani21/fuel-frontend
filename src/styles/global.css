@@ -197,3 +197,31 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
 }
+
+/* ---------- LOGOUT BUTTON STYLING ---------- */
+.logout-btn {
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile responsive adjustments for logout button */
+@media (max-width: 768px) {
+  .logout-btn {
+    top: 5px !important;
+    right: 5px !important;
+    font-size: 0.7rem !important;
+    padding: 0.2rem 0.4rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .logout-btn {
+    top: 8px !important;
+    right: 60px !important; /* Move away from navbar toggle */
+    font-size: 0.65rem !important;
+    padding: 0.15rem 0.3rem !important;
+  }
+}
